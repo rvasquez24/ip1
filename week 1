@@ -1,0 +1,41 @@
+import time
+import matplotlib.pyplot as plt
+import random
+
+# Reverse array in place
+def reverse_array(arr):
+    start = 0
+    end = len(arr) - 1
+    while start < end:
+        arr[start], arr[end] = arr[end], arr[start]
+        start += 1
+        end -= 1
+
+# Measure runtime
+def measure_runtime(array_sizes):
+    runtimes = []
+    for size in array_sizes:
+        arr = [random.randint(0, 1000) for _ in range(size)]  # Generate random array
+        start_time = time.time()  # Start timing
+        reverse_array(arr)        # Reverse array
+        end_time = time.time()    # End timing
+        runtimes.append(end_time - start_time)  # Record runtime
+    return runtimes
+
+# Data for different array sizes
+array_sizes = [500, 1500, 2500, 3500, 5000]  # Array sizes for testing
+runtimes = measure_runtime(array_sizes)
+
+# Plot runtime vs. array size
+plt.figure(figsize=(10, 6))
+plt.plot(array_sizes, runtimes, marker='o', label='Runtime')
+plt.title("Runtime of In-Place Array Reversal Algorithm")
+plt.xlabel("Array Size (n)")
+plt.ylabel("Runtime (seconds)")
+plt.legend()
+plt.grid()
+plt.show()
+
+# Show measured results for clarity
+list(zip(array_sizes, runtimes))
+
